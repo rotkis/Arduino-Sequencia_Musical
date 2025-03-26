@@ -94,7 +94,8 @@
 int estado = 0;
 int score = 0;
 int alterado = 0;
-int sequenciaCerta[10] = [NOTE_FS3, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_GS3, NOTE_FS3, NOTE_A3, NOTE_FS3];
+int sequenciaCerta[8] = {NOTE_FS3, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_GS3, NOTE_FS3, NOTE_A3, NOTE_FS3};
+int sequencia[8] = {0, 0, 0, 0, 0, 0 , 0, 0};
 LiquidCrystal lcd(13,12,11,10,9,8);
 void setup()
 {
@@ -111,51 +112,220 @@ void setup()
   attachInterrupt(digitalPinToInterrupt(1),hide,FALLING);
 }
 
-void loop()
-{
+void musica1(){
+    lcd.clear();
+ 	  lcd.setCursor(0,0);
+  	lcd.print("Inicio");
+    noTone(7);
+    tone(7,NOTE_FS3);
+    lcd.setCursor(0,1);
+  	lcd.print("F#3");
+    delay(500);
+    lcd.setCursor(0,1);
+    lcd.print("   ");
+    noTone(7);
+    tone(7,NOTE_CS4);
+    lcd.setCursor(0,1);
+  	lcd.print("C#4");
+    delay(500);
+    lcd.setCursor(0,1);
+    lcd.print("   ");
+    noTone(7);
+    tone(7,NOTE_CS4);
+    lcd.setCursor(0,1);
+  	lcd.print("C#4");
+    delay(1500);
+    lcd.setCursor(0,1);
+    lcd.print("   ");
+    noTone(7);
+    tone(7,NOTE_CS4);
+    lcd.setCursor(0,1);
+  	lcd.print("C#4");
+    delay(300);
+    lcd.setCursor(0,1);
+    lcd.print("   ");
+    noTone(7);
+    tone(7,NOTE_GS3);
+    lcd.setCursor(0,1);
+  	lcd.print("G#3");
+    delay(1000);
+    lcd.setCursor(0,1);
+    lcd.print("   ");
+    noTone(7);
+    tone(7,NOTE_FS3);
+    lcd.setCursor(0,1);
+  	lcd.print("F#3");
+    delay(500);
+    lcd.setCursor(0,1);
+    lcd.print("   ");
+    noTone(7);
+    tone(7,NOTE_A3);
+    lcd.setCursor(0,1);
+  	lcd.print(" A3");
+    delay(1500);
+    lcd.setCursor(0,1);
+    lcd.print("   ");
+    noTone(7);
+    tone(7,NOTE_FS3);
+    lcd.setCursor(0,1);
+  	lcd.print("F#3");
+    delay(800); 
+    noTone(7);
+}
+
+void res() {
+  while (sequencia[7] == 0) {
+        int primeiro = digitalRead(0);
+        int segundo = digitalRead(1);
+        int terceiro = digitalRead(2);
+        int quarto = digitalRead(3);
+        int quinto = digitalRead(4);
+        if (primeiro == LOW){
+           sequencia[i] = NOTE_CS4;
+           tone(7,NOTE_CS4);
+           delay(500);
+           lcd.setCursor(0,1);
+  	       lcd.print("C#4");
+           noTone(7);
+           if (sequencia[i] == sequenciaCerta[i]){
+              digitalWrite(5, HIGH);
+              digitalWrite(6, LOW);
+              lcd.setCursor(0,0);
+  	          lcd.print("Acertou!");
+              delay(500);
+              digitalWrite(5, LOW);
+           } else{
+              digitalWrite(5, LOW);
+              digitalWrite(6, HIGH);
+              lcd.setCursor(0,0);
+  	          lcd.print("Errou!  ");
+              delay(500);
+              digitalWrite(6, LOW);
+
+           }
+           i++;
+        } else if (segundo == LOW){
+           sequencia[i] = NOTE_A3;
+           tone(7,NOTE_A3);
+           delay(500);
+           lcd.setCursor(0,1);
+  	       lcd.print(" A3");
+           noTone(7);
+           if (sequencia[i] == sequenciaCerta[i]){
+              digitalWrite(5, HIGH);
+              digitalWrite(6, LOW);
+              lcd.setCursor(0,0);
+  	          lcd.print("Acertou!");
+              delay(500);
+              digitalWrite(5, LOW);
+           } else{
+              digitalWrite(5, LOW);
+              digitalWrite(6, HIGH);
+              lcd.setCursor(0,0);
+  	          lcd.print("Errou!  ");
+              delay(500);
+              digitalWrite(6, LOW);
+
+           }
+           i++;
+        } else if (terceiro == LOW){
+           sequencia[i] = NOTE_GS3;
+           tone(7,NOTE_GS3);
+           delay(500);
+           lcd.setCursor(0,1);
+           lcd.print("G#3");
+           noTone(7);
+           if (sequencia[i] == sequenciaCerta[i]){
+              digitalWrite(5, HIGH);
+              digitalWrite(6, LOW);
+              lcd.setCursor(0,0);
+  	          lcd.print("Acertou!");
+              delay(500);
+              digitalWrite(5, LOW);
+
+           } else{
+              digitalWrite(5, LOW);
+              digitalWrite(6, HIGH);
+              lcd.setCursor(0,0);
+  	          lcd.print("Errou!  ");
+              delay(500);
+              digitalWrite(6, LOW);
+
+           }
+           i++;
+        } else if (quarto == LOW){
+           sequencia[i] = NOTE_FS3;
+           tone(7,NOTE_FS3);
+           delay(500);
+           lcd.setCursor(0,1);
+           lcd.print("C#4");
+           noTone(7);
+           if (sequencia[i] == sequenciaCerta[i]){
+              digitalWrite(5, HIGH);
+              digitalWrite(6, LOW);
+              lcd.setCursor(0,0);
+  	          lcd.print("Acertou!");
+              delay(500);
+              digitalWrite(5, LOW);
+
+           } else{
+              digitalWrite(5, LOW);
+              digitalWrite(6, HIGH);
+              lcd.setCursor(0,0);
+  	          lcd.print("Errou!  ");
+              delay(500);
+              digitalWrite(6, LOW);
+
+           }
+           i++;
+        } else if (quinto == LOW){
+           sequencia[i] = NOTE_DS3;
+           tone(7,NOTE_DS3);
+           delay(500);
+           lcd.setCursor(0,1);
+           lcd.print("D#3");
+           noTone(7);
+           if (sequencia[i] == sequenciaCerta[i]){
+              digitalWrite(5, HIGH);
+              digitalWrite(6, LOW);
+              lcd.setCursor(0,0);
+  	          lcd.print("Acertou!");
+              delay(500);
+              digitalWrite(5, LOW);
+
+           } else{
+              digitalWrite(5, LOW);
+              digitalWrite(6, HIGH);
+              lcd.setCursor(0,0);
+  	          lcd.print("Errou!  ");
+              delay(500);
+              digitalWrite(6, LOW);
+
+           }
+           i++;
+        }
+
+      }
+}
+
+int i = 0;
+void loop() {
   if(estado == 0){
     lcd.setCursor(0,0);
   	lcd.print("Menu");
   } else {
-    lcd.setCursor(0,0);
-  	lcd.print("Inicio");
-    tone(7, REST);
-    tone(7,NOTE_FS3);
-    delay(500);
-    tone(7, REST);
-    tone(7,NOTE_CS4);
-    delay(500);
-    tone(7, REST);
-    tone(7,NOTE_CS4);
-    delay(1500);
-    tone(7, REST);
-    tone(7,NOTE_CS4);
-    delay(300);
-    tone(7, REST);
-    tone(7,NOTE_GS3);
-    delay(1000);
-    tone(7, REST);
-    tone(7,NOTE_FS3);
-    delay(500);
-    tone(7, REST);
-    tone(7,NOTE_A3);
-    delay(1500);
-    tone(7, REST);
-    tone(7,NOTE_FS3);
-    delay(800);
-    
-    lcd.setCursor(0,0);
-  	lcd.print("Sua vez");
-    int primeiro = digitalRead(0);
-    int segundo = digitalRead(1);
-    int terceiro = digitalRead(2);
-    int quarto = digitalRead(3);
-    int quinto = digitalRead(4);
-    
+    if (alterado== 0){
+      musica1();
+      alterado++;
+    } else if (alterado == 1 ){
+      lcd.setCursor(0,0);
+  	  lcd.print("Sua vez");
+      res();
+    }  
   }
 }
 
-void blink(){
+void blink() {
   if (estado == 0){
     estado ++;
   } 
