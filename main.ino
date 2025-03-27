@@ -94,6 +94,7 @@
 int estado = 0;
 int score = 0;
 int alterado = 0;
+int vida = 3;
 int sequenciaCerta[8] = {NOTE_FS3, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_GS3, NOTE_FS3, NOTE_A3, NOTE_FS3};
 int sequencia[8] = {0, 0, 0, 0, 0, 0 , 0, 0};
 LiquidCrystal lcd(13,12,11,10,9,8);
@@ -173,7 +174,7 @@ void musica1(){
     noTone(7);
 }
 
-void res() {
+void res(int i) {
   while (sequencia[7] == 0) {
         int primeiro = digitalRead(0);
         int segundo = digitalRead(1);
@@ -190,6 +191,7 @@ void res() {
            if (sequencia[i] == sequenciaCerta[i]){
               digitalWrite(5, HIGH);
               digitalWrite(6, LOW);
+              score++;
               lcd.setCursor(0,0);
   	          lcd.print("Acertou!");
               delay(500);
@@ -238,6 +240,7 @@ void res() {
            if (sequencia[i] == sequenciaCerta[i]){
               digitalWrite(5, HIGH);
               digitalWrite(6, LOW);
+              score++;
               lcd.setCursor(0,0);
   	          lcd.print("Acertou!");
               delay(500);
@@ -258,11 +261,12 @@ void res() {
            tone(7,NOTE_FS3);
            delay(500);
            lcd.setCursor(0,1);
-           lcd.print("C#4");
+           lcd.print("F#3");
            noTone(7);
            if (sequencia[i] == sequenciaCerta[i]){
               digitalWrite(5, HIGH);
               digitalWrite(6, LOW);
+              score++;
               lcd.setCursor(0,0);
   	          lcd.print("Acertou!");
               delay(500);
@@ -288,6 +292,7 @@ void res() {
            if (sequencia[i] == sequenciaCerta[i]){
               digitalWrite(5, HIGH);
               digitalWrite(6, LOW);
+              score++;
               lcd.setCursor(0,0);
   	          lcd.print("Acertou!");
               delay(500);
@@ -304,8 +309,10 @@ void res() {
            }
            i++;
         }
+    
 
       }
+  	
 }
 
 int i = 0;
@@ -320,18 +327,33 @@ void loop() {
     } else if (alterado == 1 ){
       lcd.setCursor(0,0);
   	  lcd.print("Sua vez");
-      res();
-    }  
+      res(0);
+      
+      if (score == 7){
+      	lcd.setCursor(0,0);
+  	  lcd.print("Parabens!");
+        delay(2000);
+        lcd.clear();
+      }
+      lcd.setCursor(0,0);
+  	  lcd.print("Score: ");
+      lcd.setCursor(8,0);
+      lcd.print(score);
+      alterado++;
+    } else if (alterado > 1){
+      estado = 0;
+      alterado = 0;
+      delay(3000);
+      lcd.clear();
+    }
   }
 }
 
 void blink() {
   if (estado == 0){
     estado ++;
-  } 
- 	
+  } 	
 }
-
 void hide(){
-  
+
 }
