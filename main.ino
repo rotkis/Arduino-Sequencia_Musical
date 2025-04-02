@@ -94,8 +94,13 @@
 int estado = 0;
 int score = 0;
 int alterado = 0;
-int dificuldade = 1;
-int sequenciaCerta[8] = {NOTE_FS3, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_GS3, NOTE_FS3, NOTE_A3, NOTE_FS3};
+int dificuldade = 0;
+int musicaSelecionada = 0;
+int sequenciaMusica1[11] = {NOTE_FS3, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_GS3, NOTE_FS3, NOTE_A3, NOTE_FS3, NOTE_FS3, NOTE_CS4, NOTE_CS4};
+int sequenciaMusica2[11] = {NOTE_FS3, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_GS3, NOTE_FS3, NOTE_A3, NOTE_FS3, NOTE_FS3, NOTE_CS4, NOTE_CS4};
+int sequenciaMusica3[11] = {NOTE_FS3, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_GS3, NOTE_FS3, NOTE_A3, NOTE_FS3, NOTE_FS3, NOTE_CS4, NOTE_CS4};
+int sequenciaMusica4[11] = {NOTE_FS3, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_GS3, NOTE_FS3, NOTE_A3, NOTE_FS3, NOTE_FS3, NOTE_CS4, NOTE_CS4};
+int sequenciaMusica5[11] = {NOTE_FS3, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_GS3, NOTE_FS3, NOTE_A3, NOTE_FS3, NOTE_FS3, NOTE_CS4, NOTE_CS4};
 int sequencia[11] = {0, 0, 0, 0, 0, 0 , 0, 0, 0 , 0 , 0};
 LiquidCrystal lcd(13,12,11,10,9,8);
 void setup() {
@@ -149,7 +154,7 @@ void musica1(){
     lcd.setCursor(0,1);
   	lcd.print("3");
     delay(1000);
-    if (dificuldade == 1){
+    if (dificuldade % 3 == 0){
       noTone(7);
       lcd.setCursor(0,1);
   	  lcd.print("3");
@@ -175,26 +180,45 @@ void musica1(){
     tone(7,NOTE_FS3);
     lcd.setCursor(0,1);
   	lcd.print("4");
-    delay(800); 
-    noTone(7);
-    if (dificuldade == 2){
+    delay(800);  
+    if (dificuldade% 3 == 1){
       noTone(7);
       lcd.setCursor(0,1);
   	  lcd.print("3");
       return;
     }
+    tone(7,NOTE_FS3);
+    lcd.setCursor(0,1);
+  	lcd.print("4");
+    delay(500);
+    lcd.setCursor(0,1);
+    lcd.print("   ");
+    noTone(7);
+    tone(7,NOTE_CS4);
+    lcd.setCursor(0,1);
+  	lcd.print("1");
+    delay(500);
+    lcd.setCursor(0,1);
+    lcd.print("   ");
+    noTone(7);
+    tone(7,NOTE_CS4);
+    lcd.setCursor(0,1);
+  	lcd.print("1");
+    lcd.print("   ");
+    noTone(7);
+    
 }
 
-int res(int i ,int nota1, int nota2, int nota3, int nota4, int nota5) {
+int res(int i ,int nota1, int nota2, int nota3, int nota4, int nota5, int sequenciaCerta[]) {
   int vida = 3;
   int j = 0
-  if (dificuldade == 1){
+  if (dificuldade % 3 == 0){
     j = 5;
   }
-  if (dificuldade ==  2){
+  if (dificuldade % 3 ==  1){
     j = 8;
   }
-  if (dificuldade == 3 ){
+  if (dificuldade %3 == 2 ){
     j = 10;
   }
 
@@ -344,23 +368,114 @@ int res(int i ,int nota1, int nota2, int nota3, int nota4, int nota5) {
         }
       }
   vida = 3;
-  // todo zerar tudo a sequencia
+  sequencia[11] = {0, 0, 0, 0, 0, 0 , 0, 0, 0 , 0 , 0};
   return j - 1;
+}
+
+void menuDificuldade(){
+  while (true){
+    lcd.setCursor(0,0);
+    lcd.print("Escolha a dificuldade");
+    lcd.setCursor(0,1);
+
+    switch (dificuldade % 3) {
+    case 0:
+      lcd.print("> Facil  ");
+      if (estado == 3){
+        return;
+      }
+      break;
+    case 1:
+      lcd.print("> Medio  ");
+      if (estado == 3){
+        return;
+      }
+      break;
+    case 2:
+      lcd.print("> Dificil");
+      if (estado == 3){
+        return;
+      }
+      break;
+    default:
+      estado =0;
+      break;
+    } 
+  }
+}
+
+void menuMusica() {
+  lcd.setCursor(0,0);
+  lcd.print("Escolha a musica");
+  lcd.setCursor(0,1);
+
+  switch (musicaSelecionada % 5) {
+  case 0:
+    lcd.print("> Musica 1");
+    break;
+  case 1:
+    lcd.print("> Musica 2");
+    break;
+  case 2:
+    lcd.print("> Musica 3");
+    break;
+  case 3:
+    lcd.print("> Musica 4");
+    break;
+  case 4:
+    lcd.print("> Musica 5");
+    break;
+  default:
+    estado =0;
+    break;
+  }
 }
 
 
 void loop() {
   if(estado == 0){
-    lcd.setCursor(0,0);
-  	lcd.print("Menu");
-    // todo bem vindo
-    // todo escolha de musica
-  } else {
+    lcd.setCursor(0, 0);
+  lcd.print("Seja bem vindo");
+  lcd.setCursor(0, 1);
+  lcd.print("Pressione botao 3 p/ iniciar");
+  } else if (estado == 1){
+    menuMusica();
+  } else if (estado == 2) {
     if (alterado== 0){
+      switch (musicaSelecionada % 5) {
+      case 0:
+        musica1();
+        menuDificuldade();
+        alterado++;
+        break;
+      case 1:
+        lcd.print("> Musica 2");
+        menuDificuldade();
+        alterado++;
+        break;
+      case 2:
+        lcd.print("> Musica 3");
+        menuDificuldade();
+        alterado++;
+        break;
+      case 3:
+        lcd.print("> Musica 4");
+        menuDificuldade();
+        alterado++;
+        break;
+      case 4:
+        lcd.print("> Musica 5");
+        menuDificuldade();
+        alterado++;
+        break;
+      default:
+        estado =0;
+        break;
+      }
+      musicaSelecionada = 0;
       // todo escolha de dificuldade
-      musica1();
-      alterado++;
-    } else if (alterado == 1 ){
+      } else if (alterado == 1 ){
+      lcd.clear();
       lcd.setCursor(0,0);
   	  lcd.print("Sua vez");
       if (score == res( 0, NOTE_CS4, NOTE_A3, NOTE_GS3 ,NOTE_FS3 , NOTE_DS3)){
@@ -385,13 +500,18 @@ void loop() {
 }
 
 void blink() {
-  if (estado == 0){
+  if (estado <= 2){
     estado ++;
   } 
  	
 }
 
 void hide(){
-  
+  if (estado == 1){
+    musicaSelecionada++;
+  }
+  if (estado == 2) {
+    dificuldade++;
+  }
 }
 
