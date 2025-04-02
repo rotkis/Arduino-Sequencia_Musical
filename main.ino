@@ -95,12 +95,10 @@ int estado = 0;
 int score = 0;
 int alterado = 0;
 int dificuldade = 1;
-int vida = 3;
 int sequenciaCerta[8] = {NOTE_FS3, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_GS3, NOTE_FS3, NOTE_A3, NOTE_FS3};
-int sequencia[8] = {0, 0, 0, 0, 0, 0 , 0, 0};
+int sequencia[11] = {0, 0, 0, 0, 0, 0 , 0, 0, 0 , 0 , 0};
 LiquidCrystal lcd(13,12,11,10,9,8);
-void setup()
-{
+void setup() {
   lcd.begin(16,2);
   pinMode(7, OUTPUT);// buzzer
   pinMode(6, OUTPUT);// vermelho
@@ -179,9 +177,16 @@ void musica1(){
   	lcd.print("4");
     delay(800); 
     noTone(7);
+    if (dificuldade == 2){
+      noTone(7);
+      lcd.setCursor(0,1);
+  	  lcd.print("3");
+      return;
+    }
 }
 
 int res(int i ,int nota1, int nota2, int nota3, int nota4, int nota5) {
+  int vida = 3;
   int j = 0
   if (dificuldade == 1){
     j = 5;
@@ -213,6 +218,7 @@ int res(int i ,int nota1, int nota2, int nota3, int nota4, int nota5) {
   	          lcd.print("Acertou!");
               delay(500);
               digitalWrite(5, LOW);
+              score++;
            } else{
               digitalWrite(5, LOW);
               digitalWrite(6, HIGH);
@@ -237,6 +243,7 @@ int res(int i ,int nota1, int nota2, int nota3, int nota4, int nota5) {
   	          lcd.print("Acertou!");
               delay(500);
               digitalWrite(5, LOW);
+              score++;
            } else{
               digitalWrite(5, LOW);
               digitalWrite(6, HIGH);
@@ -261,7 +268,7 @@ int res(int i ,int nota1, int nota2, int nota3, int nota4, int nota5) {
   	          lcd.print("Acertou!");
               delay(500);
               digitalWrite(5, LOW);
-
+              score++;
            } else{
               digitalWrite(5, LOW);
               digitalWrite(6, HIGH);
@@ -286,7 +293,7 @@ int res(int i ,int nota1, int nota2, int nota3, int nota4, int nota5) {
   	          lcd.print("Acertou!");
               delay(500);
               digitalWrite(5, LOW);
-
+              score++;
            } else{
               digitalWrite(5, LOW);
               digitalWrite(6, HIGH);
@@ -311,6 +318,7 @@ int res(int i ,int nota1, int nota2, int nota3, int nota4, int nota5) {
   	          lcd.print("Acertou!");
               delay(500);
               digitalWrite(5, LOW);
+              score++;
 
            } else{
               digitalWrite(5, LOW);
@@ -327,6 +335,13 @@ int res(int i ,int nota1, int nota2, int nota3, int nota4, int nota5) {
         lcd.print("Vida: ");
         lcd.setCursor(15, 1);
         lcd.print(vida);
+        if (vida == 0){
+          delay(1000);
+          lcd.clear();
+          lcd.setCursor();
+          lcd.print("GAMEOVER");
+          break;
+        }
       }
   vida = 3;
   // todo zerar tudo a sequencia
