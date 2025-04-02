@@ -1,6 +1,5 @@
-// C++ code
-//
 #include <LiquidCrystal.h>
+
 #define NOTE_B0  31
 #define NOTE_C1  33
 #define NOTE_CS1 35
@@ -91,269 +90,80 @@
 #define NOTE_D8  4699
 #define NOTE_DS8 4978
 #define REST      0
+
 int estado = 0;
-int score = 0;
 int alterado = 0;
-int vida = 3;
-int sequenciaCerta[8] = {NOTE_FS3, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_GS3, NOTE_FS3, NOTE_A3, NOTE_FS3};
-int sequencia[8] = {0, 0, 0, 0, 0, 0 , 0, 0};
+int musicaSelecionada = 0; // Índice da música selecionada
+
 LiquidCrystal lcd(13,12,11,10,9,8);
-void setup()
-{
+
+void setup() {
   lcd.begin(16,2);
-  pinMode(7, OUTPUT);// buzzer
-  pinMode(6, OUTPUT);// vermelho
-  pinMode(5, OUTPUT);// verde
-  pinMode(4,INPUT_PULLUP);
-  pinMode(3,INPUT_PULLUP);
-  pinMode(2,INPUT_PULLUP); 
-  pinMode(1,INPUT_PULLUP); 
-  pinMode(0,INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(2),blink,FALLING);
-  attachInterrupt(digitalPinToInterrupt(1),hide,FALLING);
+  pinMode(7, OUTPUT); // Buzzer
+  pinMode(4, INPUT_PULLUP); // Botão para mudar a música
+  pinMode(3, INPUT_PULLUP); // Botão para selecionar
+  attachInterrupt(digitalPinToInterrupt(2), blink, FALLING);
 }
 
-void musica1(){
+void musica1() {
     lcd.clear();
- 	  lcd.setCursor(0,0);
-  	lcd.print("Inicio");
-    noTone(7);
-    tone(7,NOTE_FS3);
-    lcd.setCursor(0,1);
-  	lcd.print("F#3");
-    delay(500);
-    lcd.setCursor(0,1);
-    lcd.print("   ");
-    noTone(7);
-    tone(7,NOTE_CS4);
-    lcd.setCursor(0,1);
-  	lcd.print("C#4");
-    delay(500);
-    lcd.setCursor(0,1);
-    lcd.print("   ");
-    noTone(7);
-    tone(7,NOTE_CS4);
-    lcd.setCursor(0,1);
-  	lcd.print("C#4");
-    delay(1500);
-    lcd.setCursor(0,1);
-    lcd.print("   ");
-    noTone(7);
-    tone(7,NOTE_CS4);
-    lcd.setCursor(0,1);
-  	lcd.print("C#4");
-    delay(300);
-    lcd.setCursor(0,1);
-    lcd.print("   ");
-    noTone(7);
-    tone(7,NOTE_GS3);
-    lcd.setCursor(0,1);
-  	lcd.print("G#3");
-    delay(1000);
-    lcd.setCursor(0,1);
-    lcd.print("   ");
-    noTone(7);
-    tone(7,NOTE_FS3);
-    lcd.setCursor(0,1);
-  	lcd.print("F#3");
-    delay(500);
-    lcd.setCursor(0,1);
-    lcd.print("   ");
-    noTone(7);
-    tone(7,NOTE_A3);
-    lcd.setCursor(0,1);
-  	lcd.print(" A3");
-    delay(1500);
-    lcd.setCursor(0,1);
-    lcd.print("   ");
-    noTone(7);
-    tone(7,NOTE_FS3);
-    lcd.setCursor(0,1);
-  	lcd.print("F#3");
-    delay(800); 
-    noTone(7);
-}
-
-void res(int i) {
-  while (sequencia[7] == 0) {
-        int primeiro = digitalRead(0);
-        int segundo = digitalRead(1);
-        int terceiro = digitalRead(2);
-        int quarto = digitalRead(3);
-        int quinto = digitalRead(4);
-        if (primeiro == LOW){
-           sequencia[i] = NOTE_CS4;
-           tone(7,NOTE_CS4);
-           delay(500);
-           lcd.setCursor(0,1);
-  	       lcd.print("C#4");
-           noTone(7);
-           if (sequencia[i] == sequenciaCerta[i]){
-              digitalWrite(5, HIGH);
-              digitalWrite(6, LOW);
-              score++;
-              lcd.setCursor(0,0);
-  	          lcd.print("Acertou!");
-              delay(500);
-              digitalWrite(5, LOW);
-           } else{
-              digitalWrite(5, LOW);
-              digitalWrite(6, HIGH);
-              lcd.setCursor(0,0);
-  	          lcd.print("Errou!  ");
-              delay(500);
-              digitalWrite(6, LOW);
-
-           }
-           i++;
-        } else if (segundo == LOW){
-           sequencia[i] = NOTE_A3;
-           tone(7,NOTE_A3);
-           delay(500);
-           lcd.setCursor(0,1);
-  	       lcd.print(" A3");
-           noTone(7);
-           if (sequencia[i] == sequenciaCerta[i]){
-              digitalWrite(5, HIGH);
-              digitalWrite(6, LOW);
-              lcd.setCursor(0,0);
-  	          lcd.print("Acertou!");
-              delay(500);
-              digitalWrite(5, LOW);
-           } else{
-              digitalWrite(5, LOW);
-              digitalWrite(6, HIGH);
-              lcd.setCursor(0,0);
-  	          lcd.print("Errou!  ");
-              delay(500);
-              digitalWrite(6, LOW);
-
-           }
-           i++;
-        } else if (terceiro == LOW){
-           sequencia[i] = NOTE_GS3;
-           tone(7,NOTE_GS3);
-           delay(500);
-           lcd.setCursor(0,1);
-           lcd.print("G#3");
-           noTone(7);
-           if (sequencia[i] == sequenciaCerta[i]){
-              digitalWrite(5, HIGH);
-              digitalWrite(6, LOW);
-              score++;
-              lcd.setCursor(0,0);
-  	          lcd.print("Acertou!");
-              delay(500);
-              digitalWrite(5, LOW);
-
-           } else{
-              digitalWrite(5, LOW);
-              digitalWrite(6, HIGH);
-              lcd.setCursor(0,0);
-  	          lcd.print("Errou!  ");
-              delay(500);
-              digitalWrite(6, LOW);
-
-           }
-           i++;
-        } else if (quarto == LOW){
-           sequencia[i] = NOTE_FS3;
-           tone(7,NOTE_FS3);
-           delay(500);
-           lcd.setCursor(0,1);
-           lcd.print("F#3");
-           noTone(7);
-           if (sequencia[i] == sequenciaCerta[i]){
-              digitalWrite(5, HIGH);
-              digitalWrite(6, LOW);
-              score++;
-              lcd.setCursor(0,0);
-  	          lcd.print("Acertou!");
-              delay(500);
-              digitalWrite(5, LOW);
-
-           } else{
-              digitalWrite(5, LOW);
-              digitalWrite(6, HIGH);
-              lcd.setCursor(0,0);
-  	          lcd.print("Errou!  ");
-              delay(500);
-              digitalWrite(6, LOW);
-
-           }
-           i++;
-        } else if (quinto == LOW){
-           sequencia[i] = NOTE_DS3;
-           tone(7,NOTE_DS3);
-           delay(500);
-           lcd.setCursor(0,1);
-           lcd.print("D#3");
-           noTone(7);
-           if (sequencia[i] == sequenciaCerta[i]){
-              digitalWrite(5, HIGH);
-              digitalWrite(6, LOW);
-              score++;
-              lcd.setCursor(0,0);
-  	          lcd.print("Acertou!");
-              delay(500);
-              digitalWrite(5, LOW);
-
-           } else{
-              digitalWrite(5, LOW);
-              digitalWrite(6, HIGH);
-              lcd.setCursor(0,0);
-  	          lcd.print("Errou!  ");
-              delay(500);
-              digitalWrite(6, LOW);
-
-           }
-           i++;
-        }
-    
-
-      }
-  	
-}
-
-int i = 0;
-void loop() {
-  if(estado == 0){
     lcd.setCursor(0,0);
-  	lcd.print("Menu");
+    lcd.print("Tocando Musica 1");
+    tone(7, NOTE_FS3);
+    delay(500);
+    tone(7, NOTE_CS4);
+    delay(500);
+    noTone(7);
+}
+
+void musica2() {
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Tocando Musica 2");
+    tone(7, NOTE_GS3);
+    delay(500);
+    tone(7, NOTE_A3);
+    delay(500);
+    noTone(7);
+}
+
+void menuMusica() {
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Escolha a musica");
+  lcd.setCursor(0,1);
+  if (musicaSelecionada == 0) {
+    lcd.print("> Musica 1");
   } else {
-    if (alterado== 0){
-      musica1();
-      alterado++;
-    } else if (alterado == 1 ){
-      lcd.setCursor(0,0);
-  	  lcd.print("Sua vez");
-      res(0);
-      
-      if (score == 7){
-      	lcd.setCursor(0,0);
-  	  lcd.print("Parabens!");
-        delay(2000);
-        lcd.clear();
+    lcd.print("> Musica 2");
+  }
+}
+
+void loop() {
+  if (estado == 0) {
+    menuMusica();
+    if (digitalRead(4) == LOW) { // Alterna entre músicas
+      musicaSelecionada = (musicaSelecionada + 1) % 2;
+      delay(300);
+    }
+    if (digitalRead(3) == LOW) { // Seleciona a música
+      estado = 1;
+      delay(300);
+    }
+  } else {
+    if (alterado == 0) {
+      if (musicaSelecionada == 0) {
+        musica1();
+      } else {
+        musica2();
       }
-      lcd.setCursor(0,0);
-  	  lcd.print("Score: ");
-      lcd.setCursor(8,0);
-      lcd.print(score);
       alterado++;
-    } else if (alterado > 1){
-      estado = 0;
-      alterado = 0;
-      delay(3000);
-      lcd.clear();
     }
   }
 }
 
 void blink() {
-  if (estado == 0){
-    estado ++;
-  } 	
-}
-void hide(){
-
+  if (estado == 0) {
+    estado++;
+  }
 }
