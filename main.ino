@@ -323,7 +323,12 @@ int res(int i ,int nota1, int nota2, int nota3, int nota4, int nota5) {
            }
            i++;
         }
+        lcd.setCursor(9, 1);
+        lcd.print("Vida: ");
+        lcd.setCursor(15, 1);
+        lcd.print(vida);
       }
+  vida = 3;
   // todo zerar tudo a sequencia
   return j - 1;
 }
