@@ -1,31 +1,7 @@
 // C++ code
 //
 #include <LiquidCrystal.h>
-#define NOTE_B0  31
-#define NOTE_C1  33
-#define NOTE_CS1 35
-#define NOTE_D1  37
-#define NOTE_DS1 39
-#define NOTE_E1  41
-#define NOTE_F1  44
-#define NOTE_FS1 46
-#define NOTE_G1  49
-#define NOTE_GS1 52
-#define NOTE_A1  55
-#define NOTE_AS1 58
-#define NOTE_B1  62
-#define NOTE_C2  65
-#define NOTE_CS2 69
-#define NOTE_D2  73
-#define NOTE_DS2 78
-#define NOTE_E2  82
-#define NOTE_F2  87
-#define NOTE_FS2 93
-#define NOTE_G2  98
-#define NOTE_GS2 104
-#define NOTE_A2  110
-#define NOTE_AS2 117
-#define NOTE_B2  123
+
 #define NOTE_C3  131
 #define NOTE_CS3 139
 #define NOTE_D3  147
@@ -50,59 +26,24 @@
 #define NOTE_A4  440
 #define NOTE_AS4 466
 #define NOTE_B4  494
-#define NOTE_C5  523
-#define NOTE_CS5 554
-#define NOTE_D5  587
-#define NOTE_DS5 622
-#define NOTE_E5  659
-#define NOTE_F5  698
-#define NOTE_FS5 740
-#define NOTE_G5  784
-#define NOTE_GS5 831
-#define NOTE_A5  880
-#define NOTE_AS5 932
-#define NOTE_B5  988
-#define NOTE_C6  1047
-#define NOTE_CS6 1109
-#define NOTE_D6  1175
-#define NOTE_DS6 1245
-#define NOTE_E6  1319
-#define NOTE_F6  1397
-#define NOTE_FS6 1480
-#define NOTE_G6  1568
-#define NOTE_GS6 1661
-#define NOTE_A6  1760
-#define NOTE_AS6 1865
-#define NOTE_B6  1976
-#define NOTE_C7  2093
-#define NOTE_CS7 2217
-#define NOTE_D7  2349
-#define NOTE_DS7 2489
-#define NOTE_E7  2637
-#define NOTE_F7  2794
-#define NOTE_FS7 2960
-#define NOTE_G7  3136
-#define NOTE_GS7 3322
-#define NOTE_A7  3520
-#define NOTE_AS7 3729
-#define NOTE_B7  3951
-#define NOTE_C8  4186
-#define NOTE_CS8 4435
-#define NOTE_D8  4699
-#define NOTE_DS8 4978
 #define REST      0
+
+// Variáveis globais
 int estado = 0;
 int score = 0;
 int alterado = 0;
 int dificuldade = 0;
 int musicaSelecionada = 0;
+
+// Sequências musicais
 int sequenciaMusica1[11] = {NOTE_FS3, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_GS3, NOTE_FS3, NOTE_A3, NOTE_FS3, NOTE_FS3, NOTE_CS4, NOTE_CS4};
-int sequenciaMusica2[11] = {NOTE_FS3, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_GS3, NOTE_FS3, NOTE_A3, NOTE_FS3, NOTE_FS3, NOTE_CS4, NOTE_CS4};
-int sequenciaMusica3[11] = {NOTE_FS3, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_GS3, NOTE_FS3, NOTE_A3, NOTE_FS3, NOTE_FS3, NOTE_CS4, NOTE_CS4};
-int sequenciaMusica4[11] = {NOTE_FS3, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_GS3, NOTE_FS3, NOTE_A3, NOTE_FS3, NOTE_FS3, NOTE_CS4, NOTE_CS4};
-int sequenciaMusica5[11] = {NOTE_FS3, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_GS3, NOTE_FS3, NOTE_A3, NOTE_FS3, NOTE_FS3, NOTE_CS4, NOTE_CS4};
-int sequencia[11] = {0, 0, 0, 0, 0, 0 , 0, 0, 0 , 0 , 0};
+int sequenciaMusica2[11] = {NOTE_A3, NOTE_A3, NOTE_GS3, NOTE_FS3, NOTE_CS4, NOTE_DS3, NOTE_CS4, NOTE_A3, NOTE_GS3, NOTE_FS3, NOTE_DS3};
+int sequenciaMusica3[11] = {NOTE_GS3, NOTE_FS3, NOTE_CS4, NOTE_A3, NOTE_DS3, NOTE_CS4, NOTE_A3, NOTE_GS3, NOTE_FS3, NOTE_DS3, NOTE_CS4};
+int sequenciaMusica4[11] = {NOTE_DS3, NOTE_CS4, NOTE_A3, NOTE_GS3, NOTE_FS3, NOTE_DS3, NOTE_CS4, NOTE_A3, NOTE_GS3, NOTE_FS3, NOTE_DS3};
+int sequenciaMusica5[11] = {NOTE_CS4, NOTE_DS3, NOTE_A3, NOTE_GS3, NOTE_FS3, NOTE_DS3, NOTE_CS4, NOTE_A3, NOTE_GS3, NOTE_FS3, NOTE_DS3};
+int sequencia[11] = {0};
 LiquidCrystal lcd(13,12,11,10,9,8);
+
 void setup() {
   lcd.begin(16,2);
   pinMode(7, OUTPUT);// buzzer
@@ -117,106 +58,610 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(1),hide,FALLING);
 }
 
-void musica1(){
-    lcd.clear();
- 	  lcd.setCursor(0,0);
-  	lcd.print("Inicio");
+void musica1() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Inicio Musica 1");
+
+  // Nota 1 - NOTE_FS3 (Botão 4)
+  noTone(7);
+  tone(7, NOTE_FS3);
+  lcd.setCursor(0, 1);
+  lcd.print("4");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 2 - NOTE_CS4 (Botão 1)
+  tone(7, NOTE_CS4);
+  lcd.setCursor(0, 1);
+  lcd.print("1");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 3 - NOTE_CS4 (Botão 1)
+  tone(7, NOTE_CS4);
+  lcd.setCursor(0, 1);
+  lcd.print("1");
+  delay(1500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 4 - NOTE_CS4 (Botão 1)
+  tone(7, NOTE_CS4);
+  lcd.setCursor(0, 1);
+  lcd.print("1");
+  delay(300);
+  if (dificuldade % 3 == 0) {
     noTone(7);
-    tone(7,NOTE_FS3);
-    lcd.setCursor(0,1);
-  	lcd.print("4");
-    delay(500);
-    lcd.setCursor(0,1);
+    lcd.setCursor(0, 1);
+    lcd.print("3");
+    return;
+  }
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 5 - NOTE_GS3 (Botão 3)
+  tone(7, NOTE_GS3);
+  lcd.setCursor(0, 1);
+  lcd.print("3");
+  delay(1000);
+  
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 6 - NOTE_FS3 (Botão 4)
+  tone(7, NOTE_FS3);
+  lcd.setCursor(0, 1);
+  lcd.print("4");
+  delay(500);
+  if (dificuldade % 3 == 1) {
+    noTone(7);
+    lcd.setCursor(0, 1);
+    lcd.print("3");
+    return;
+  }
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 7 - NOTE_A3 (Botão 2)
+  tone(7, NOTE_A3);
+  lcd.setCursor(0, 1);
+  lcd.print("2");
+  delay(1500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 8 - NOTE_FS3 (Botão 4)
+  tone(7, NOTE_FS3);
+  lcd.setCursor(0, 1);
+  lcd.print("4");
+  delay(800);
+  
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 9 - NOTE_FS3 (Botão 4)
+  tone(7, NOTE_FS3);
+  lcd.setCursor(0, 1);
+  lcd.print("4");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 10 - NOTE_CS4 (Botão 1)
+  tone(7, NOTE_CS4);
+  lcd.setCursor(0, 1);
+  lcd.print("1");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 11 - NOTE_CS4 (Botão 1)
+  tone(7, NOTE_CS4);
+  lcd.setCursor(0, 1);
+  lcd.print("1");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+}
+
+
+
+void musica2() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Inicio Musica 2");
+  
+  // Nota 1 - NOTE_A3 (Botão 2)
+  noTone(7);
+  tone(7, NOTE_A3);
+  lcd.setCursor(0, 1);
+  lcd.print("2");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 2 - NOTE_A3 (Botão 2)
+  tone(7, NOTE_A3);
+  lcd.setCursor(0, 1);
+  lcd.print("2");
+  delay(1500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 3 - NOTE_GS3 (Botão 3)
+  tone(7, NOTE_GS3);
+  lcd.setCursor(0, 1);
+  lcd.print("3");
+  delay(300);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 4 - NOTE_FS3 (Botão 4)
+  tone(7, NOTE_FS3);
+  lcd.setCursor(0, 1);
+  lcd.print("4");
+  delay(1000);
+  if (dificuldade % 3 == 0) {
+    noTone(7);
+    lcd.setCursor(0, 1);
+    lcd.print("4");
+    return;
+  }
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 5 - NOTE_CS4 (Botão 1)
+  tone(7, NOTE_CS4);
+  lcd.setCursor(0, 1);
+  lcd.print("1");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 6 - NOTE_DS3 (Botão 5)
+  tone(7, NOTE_DS3);
+  lcd.setCursor(0, 1);
+  lcd.print("5");
+  delay(800);
+  if (dificuldade % 3 == 1) {
+    noTone(7);
+    lcd.setCursor(0, 1);
+    lcd.print("5");
+    return;
+  }
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 7 - NOTE_CS4 (Botão 1)
+  tone(7, NOTE_CS4);
+  lcd.setCursor(0, 1);
+  lcd.print("1");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 8 - NOTE_A3 (Botão 2)
+  tone(7, NOTE_A3);
+  lcd.setCursor(0, 1);
+  lcd.print("2");
+  delay(1500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 9 - NOTE_GS3 (Botão 3)
+  tone(7, NOTE_GS3);
+  lcd.setCursor(0, 1);
+  lcd.print("3");
+  delay(300);
+      
+  
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 10 - NOTE_FS3 (Botão 4)
+  tone(7, NOTE_FS3);
+  lcd.setCursor(0, 1);
+  lcd.print("4");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 11 - NOTE_DS3 (Botão 5)
+  tone(7, NOTE_DS3);
+  lcd.setCursor(0, 1);
+  lcd.print("5");
+  delay(1000);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+}
+
+void musica3() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Inicio Musica 3");
+
+  // Nota 1 - NOTE_GS3 (Botão 3)
+  noTone(7);
+  tone(7, NOTE_GS3);
+  lcd.setCursor(0, 1);
+  lcd.print("3");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 2 - NOTE_FS3 (Botão 4)
+  tone(7, NOTE_FS3);
+  lcd.setCursor(0, 1);
+  lcd.print("4");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 3 - NOTE_CS4 (Botão 1)
+  tone(7, NOTE_CS4);
+  lcd.setCursor(0, 1);
+  lcd.print("1");
+  delay(1500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 4 - NOTE_A3 (Botão 2)
+  tone(7, NOTE_A3);
+  lcd.setCursor(0, 1);
+  lcd.print("2");
+  delay(1000);
+  if (dificuldade % 3 == 0) {
+    noTone(7);
+    lcd.setCursor(0, 1);
+    lcd.print("2");
+    return;
+  }
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 5 - NOTE_DS3 (Botão 5)
+  tone(7, NOTE_DS3);
+  lcd.setCursor(0, 1);
+  lcd.print("5");
+  delay(800);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 6 - NOTE_CS4 (Botão 1)
+  tone(7, NOTE_CS4);
+  lcd.setCursor(0, 1);
+  lcd.print("1");
+  delay(500);
+  if (dificuldade % 3 == 1) {
+    noTone(7);
+    lcd.setCursor(0, 1);
+    lcd.print("1");
+    return;
+  }
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 7 - NOTE_A3 (Botão 2)
+  tone(7, NOTE_A3);
+  lcd.setCursor(0, 1);
+  lcd.print("2");
+  delay(300);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 8 - NOTE_GS3 (Botão 3)
+  tone(7, NOTE_GS3);
+  lcd.setCursor(0, 1);
+  lcd.print("3");
+  delay(1500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 9 - NOTE_FS3 (Botão 4)
+  tone(7, NOTE_FS3);
+  lcd.setCursor(0, 1);
+  lcd.print("4");
+  delay(500);
+  
+
+  // Nota 10 - NOTE_DS3 (Botão 5)
+  tone(7, NOTE_DS3);
+  lcd.setCursor(0, 1);
+  lcd.print("5");
+  delay(1000);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 11 - NOTE_CS4 (Botão 1)
+  tone(7, NOTE_CS4);
+  lcd.setCursor(0, 1);
+  lcd.print("1");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+}
+
+void musica4() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Inicio Musica 4");
+
+  // Nota 1 - NOTE_DS3 (Botão 5)
+  noTone(7);
+  tone(7, NOTE_DS3);
+  lcd.setCursor(0, 1);
+  lcd.print("5");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 2 - NOTE_CS4 (Botão 1)
+  tone(7, NOTE_CS4);
+  lcd.setCursor(0, 1);
+  lcd.print("1");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 3 - NOTE_A3 (Botão 2)
+  tone(7, NOTE_A3);
+  lcd.setCursor(0, 1);
+  lcd.print("2");
+  delay(1500);
+  
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 4 - NOTE_GS3 (Botão 3)
+  tone(7, NOTE_GS3);
+  lcd.setCursor(0, 1);
+  lcd.print("3");
+  delay(1000);
+  if (dificuldade % 3 == 0) {
+    noTone(7);
+    lcd.setCursor(0, 1);
     lcd.print("   ");
+    return;
+  }
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 5 - NOTE_FS3 (Botão 4)
+  tone(7, NOTE_FS3);
+  lcd.setCursor(0, 1);
+  lcd.print("4");
+  delay(800);
+  
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 6 - NOTE_DS3 (Botão 5)
+  tone(7, NOTE_DS3);
+  lcd.setCursor(0, 1);
+  lcd.print("5");
+  delay(500);
+  if (dificuldade % 3 == 1) {
     noTone(7);
-    tone(7,NOTE_CS4);
-    lcd.setCursor(0,1);
-  	lcd.print("1");
-    delay(500);
-    lcd.setCursor(0,1);
-    lcd.print("   ");
+    lcd.setCursor(0, 1);
+    lcd.print("  ");
+    return;
+  }
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 7 - NOTE_CS4 (Botão 1)
+  tone(7, NOTE_CS4);
+  lcd.setCursor(0, 1);
+  lcd.print("1");
+  delay(300);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 8 - NOTE_A3 (Botão 2)
+  tone(7, NOTE_A3);
+  lcd.setCursor(0, 1);
+  lcd.print("2");
+  delay(1500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 9 - NOTE_GS3 (Botão 3)
+  tone(7, NOTE_GS3);
+  lcd.setCursor(0, 1);
+  lcd.print("3");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 10 - NOTE_FS3 (Botão 4)
+  tone(7, NOTE_FS3);
+  lcd.setCursor(0, 1);
+  lcd.print("4");
+  delay(1000);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 11 - NOTE_DS3 (Botão 5)
+  tone(7, NOTE_DS3);
+  lcd.setCursor(0, 1);
+  lcd.print("5");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+}
+
+void musica5() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Inicio Musica 5");
+
+  // Nota 1 - NOTE_CS4 (Botão 1)
+  noTone(7);
+  tone(7, NOTE_CS4);
+  lcd.setCursor(0, 1);
+  lcd.print("1");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 2 - NOTE_DS3 (Botão 5)
+  tone(7, NOTE_DS3);
+  lcd.setCursor(0, 1);
+  lcd.print("5");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 3 - NOTE_A3 (Botão 2)
+  tone(7, NOTE_A3);
+  lcd.setCursor(0, 1);
+  lcd.print("2");
+  delay(1500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 4 - NOTE_GS3 (Botão 3)
+  tone(7, NOTE_GS3);
+  lcd.setCursor(0, 1);
+  lcd.print("3");
+  delay(1000);
+  if (dificuldade % 3 == 0) {
     noTone(7);
-    tone(7,NOTE_CS4);
-    lcd.setCursor(0,1);
-  	lcd.print("1");
-    delay(1500);
-    lcd.setCursor(0,1);
-    lcd.print("   ");
+    lcd.setCursor(0, 1);
+    lcd.print("3");
+    return;
+  }
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 5 - NOTE_FS3 (Botão 4)
+  tone(7, NOTE_FS3);
+  lcd.setCursor(0, 1);
+  lcd.print("4");
+  delay(800);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 6 - NOTE_DS3 (Botão 5)
+  tone(7, NOTE_DS3);
+  lcd.setCursor(0, 1);
+  lcd.print("5");
+  delay(500);
+  if (dificuldade % 3 == 1) {
     noTone(7);
-    tone(7,NOTE_CS4);
-    lcd.setCursor(0,1);
-  	lcd.print("1");
-    delay(300);
-    lcd.setCursor(0,1);
-    lcd.print("   ");
-    noTone(7);
-    tone(7,NOTE_GS3);
-    lcd.setCursor(0,1);
-  	lcd.print("3");
-    delay(1000);
-    if (dificuldade % 3 == 0){
-      noTone(7);
-      lcd.setCursor(0,1);
-  	  lcd.print("3");
-      return;
-    }
-    lcd.setCursor(0,1);
-    lcd.print("   ");
-    noTone(7);
-    tone(7,NOTE_FS3);
-    lcd.setCursor(0,1);
-  	lcd.print("4");
-    delay(500);
-    lcd.setCursor(0,1);
-    lcd.print("   ");
-    noTone(7);
-    tone(7,NOTE_A3);
-    lcd.setCursor(0,1);
-  	lcd.print("2");
-    delay(1500);
-    lcd.setCursor(0,1);
-    lcd.print("   ");
-    noTone(7);
-    tone(7,NOTE_FS3);
-    lcd.setCursor(0,1);
-  	lcd.print("4");
-    delay(800);  
-    if (dificuldade% 3 == 1){
-      noTone(7);
-      lcd.setCursor(0,1);
-  	  lcd.print("3");
-      return;
-    }
-    tone(7,NOTE_FS3);
-    lcd.setCursor(0,1);
-  	lcd.print("4");
-    delay(500);
-    lcd.setCursor(0,1);
-    lcd.print("   ");
-    noTone(7);
-    tone(7,NOTE_CS4);
-    lcd.setCursor(0,1);
-  	lcd.print("1");
-    delay(500);
-    lcd.setCursor(0,1);
-    lcd.print("   ");
-    noTone(7);
-    tone(7,NOTE_CS4);
-    lcd.setCursor(0,1);
-  	lcd.print("1");
-    lcd.print("   ");
-    noTone(7);
-    
+    lcd.setCursor(0, 1);
+    lcd.print("5");
+    return;
+  }
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 7 - NOTE_CS4 (Botão 1)
+  tone(7, NOTE_CS4);
+  lcd.setCursor(0, 1);
+  lcd.print("1");
+  delay(300);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 8 - NOTE_A3 (Botão 2)
+  tone(7, NOTE_A3);
+  lcd.setCursor(0, 1);
+  lcd.print("2");
+  delay(1500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 9 - NOTE_GS3 (Botão 3)
+  tone(7, NOTE_GS3);
+  lcd.setCursor(0, 1);
+  lcd.print("3");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 10 - NOTE_FS3 (Botão 4)
+  tone(7, NOTE_FS3);
+  lcd.setCursor(0, 1);
+  lcd.print("4");
+  delay(1000);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
+
+  // Nota 11 - NOTE_DS3 (Botão 5)
+  tone(7, NOTE_DS3);
+  lcd.setCursor(0, 1);
+  lcd.print("5");
+  delay(500);
+  lcd.setCursor(0, 1);
+  lcd.print("   ");
+  noTone(7);
 }
 
 int res(int i ,int nota1, int nota2, int nota3, int nota4, int nota5, int sequenciaCerta[]) {
   int vida = 3;
-  int j = 0
+  int j = 0;
   if (dificuldade % 3 == 0){
-    j = 5;
+    j = 3;
   }
   if (dificuldade % 3 ==  1){
-    j = 8;
+    j = 5;
   }
   if (dificuldade %3 == 2 ){
     j = 10;
@@ -362,14 +807,14 @@ int res(int i ,int nota1, int nota2, int nota3, int nota4, int nota5, int sequen
         if (vida == 0){
           delay(1000);
           lcd.clear();
-          lcd.setCursor();
+          lcd.setCursor(8, 1);
           lcd.print("GAMEOVER");
           break;
         }
       }
   vida = 3;
-  sequencia[11] = {0, 0, 0, 0, 0, 0 , 0, 0, 0 , 0 , 0};
-  return j - 1;
+  for(int k = 0; k < 11; k++) sequencia[k] = 0;
+  return j;
 }
 
 void menuDificuldade(){
@@ -377,7 +822,7 @@ void menuDificuldade(){
     lcd.setCursor(0,0);
     lcd.print("Escolha a dificuldade");
     lcd.setCursor(0,1);
-
+    if (digitalRead(1) == LOW) dificuldade++;
     switch (dificuldade % 3) {
     case 0:
       lcd.print("> Facil  ");
@@ -404,32 +849,7 @@ void menuDificuldade(){
   }
 }
 
-void menuMusica() {
-  lcd.setCursor(0,0);
-  lcd.print("Escolha a musica");
-  lcd.setCursor(0,1);
 
-  switch (musicaSelecionada % 5) {
-  case 0:
-    lcd.print("> Musica 1");
-    break;
-  case 1:
-    lcd.print("> Musica 2");
-    break;
-  case 2:
-    lcd.print("> Musica 3");
-    break;
-  case 3:
-    lcd.print("> Musica 4");
-    break;
-  case 4:
-    lcd.print("> Musica 5");
-    break;
-  default:
-    estado =0;
-    break;
-  }
-}
 
 
 void loop() {
@@ -438,47 +858,54 @@ void loop() {
   lcd.print("Seja bem vindo");
   lcd.setCursor(0, 1);
   lcd.print("Pressione botao 3 p/ iniciar");
+  musicaSelecionada = 0;
   } else if (estado == 1){
-    menuMusica();
-  } else if (estado == 2) {
+  if (digitalRead(1) == LOW) musicaSelecionada++;
+  lcd.setCursor(0,0);
+  lcd.print("Escolha a musica              ");
+  lcd.setCursor(0,1);
+  switch (musicaSelecionada % 5) {
+  case 0:
+    lcd.print("> Musica 1              ");
+    break;
+  case 1:
+    lcd.print("> Musica 2              ");
+    break;
+  case 2:
+    lcd.print("> Musica 3              ");
+    break;
+  case 3:
+    lcd.print("> Musica 4              ");
+    break;
+  case 4:
+    lcd.print("> Musica 5              ");
+    break;
+  default:
+    estado =1;
+    break;
+  }
+  } else if (estado == 2){
+    lcd.clear();
+    menuDificuldade();
+  } else if (estado == 3) {
     if (alterado== 0){
       switch (musicaSelecionada % 5) {
-      case 0:
-        musica1();
-        menuDificuldade();
-        alterado++;
-        break;
-      case 1:
-        lcd.print("> Musica 2");
-        menuDificuldade();
-        alterado++;
-        break;
-      case 2:
-        lcd.print("> Musica 3");
-        menuDificuldade();
-        alterado++;
-        break;
-      case 3:
-        lcd.print("> Musica 4");
-        menuDificuldade();
-        alterado++;
-        break;
-      case 4:
-        lcd.print("> Musica 5");
-        menuDificuldade();
-        alterado++;
-        break;
-      default:
-        estado =0;
-        break;
+        case 0: musica1(); break;
+        case 1: musica2(); break;
+        case 2: musica3(); break;
+        case 3: musica4(); break;
+        case 4: musica5(); break;
       }
-      musicaSelecionada = 0;
-      // todo escolha de dificuldade
+      alterado++;
+      estado++;
+    }
       } else if (alterado == 1 ){
-      lcd.clear();
+      switch (musicaSelecionada % 5) {
+      case 0:
+        lcd.clear();
       lcd.setCursor(0,0);
   	  lcd.print("Sua vez");
-      if (score == res( 0, NOTE_CS4, NOTE_A3, NOTE_GS3 ,NOTE_FS3 , NOTE_DS3)){
+      if (score == res( 0, NOTE_CS4, NOTE_A3, NOTE_GS3 ,NOTE_FS3 , NOTE_DS3, sequenciaMusica1)+1){
       	lcd.setCursor(0,0);
   	  lcd.print("Parabens!");
         delay(2000);
@@ -488,19 +915,91 @@ void loop() {
   	  lcd.print("Score: ");
       lcd.setCursor(8,0);
       lcd.print(score);
+      musicaSelecionada = 0;
       alterado++;
-    } else if (alterado > 1){
+      break;
+      case 1:
+        lcd.clear();
+      lcd.setCursor(0,0);
+  	  lcd.print("Sua vez");
+      if (score == res( 0, NOTE_CS4, NOTE_A3, NOTE_GS3 ,NOTE_FS3 , NOTE_DS3, sequenciaMusica2)){
+      	lcd.setCursor(0,0);
+  	  lcd.print("Parabens!");
+        delay(2000);
+        lcd.clear();
+      }
+      lcd.setCursor(0,0);
+  	  lcd.print("Score: ");
+      lcd.setCursor(8,0);
+      lcd.print(score);
+      musicaSelecionada = 0;
+      alterado++; 
+        break;
+      case 2:
+         lcd.clear();
+      lcd.setCursor(0,0);
+  	  lcd.print("Sua vez");
+      if (score == res( 0, NOTE_CS4, NOTE_A3, NOTE_GS3 ,NOTE_FS3 , NOTE_DS3, sequenciaMusica3)){
+      	lcd.setCursor(0,0);
+  	  lcd.print("Parabens!");
+        delay(2000);
+        lcd.clear();
+      }
+      lcd.setCursor(0,0);
+  	  lcd.print("Score: ");
+      lcd.setCursor(8,0);
+      lcd.print(score);
+      musicaSelecionada = 0;
+      alterado++;
+        break;
+      case 3:
+        lcd.clear();
+      lcd.setCursor(0,0);
+  	  lcd.print("Sua vez");
+      if (score == res( 0, NOTE_CS4, NOTE_A3, NOTE_GS3 ,NOTE_FS3 , NOTE_DS3, sequenciaMusica4)){
+      	lcd.setCursor(0,0);
+  	  lcd.print("Parabens!");
+        delay(2000);
+        lcd.clear();
+      }
+      lcd.setCursor(0,0);
+  	  lcd.print("Score: ");
+      lcd.setCursor(8,0);
+      lcd.print(score);
+      musicaSelecionada = 0;
+      alterado++;
+        break;
+      case 4:
+        lcd.clear();
+      lcd.setCursor(0,0);
+  	  lcd.print("Sua vez");
+      if (score == res( 0, NOTE_CS4, NOTE_A3, NOTE_GS3 ,NOTE_FS3 , NOTE_DS3, sequenciaMusica5)){
+      	lcd.setCursor(0,0);
+  	  lcd.print("Parabens!");
+        delay(2000);
+        lcd.clear();
+      }
+      lcd.setCursor(0,0);
+  	  lcd.print("Score: ");
+      lcd.setCursor(8,0);
+      lcd.print(score);
+      musicaSelecionada = 0;
+      alterado++;
+        break;
+      default:
+        estado =0;
+        break;
+      }
+      } else if (alterado > 1){
       estado = 0;
       alterado = 0;
       delay(3000);
       lcd.clear();
-    }
-      
-  }
+      }
 }
 
 void blink() {
-  if (estado <= 2){
+  if (estado <= 3){
     estado ++;
   } 
  	
@@ -514,4 +1013,5 @@ void hide(){
     dificuldade++;
   }
 }
+
 
