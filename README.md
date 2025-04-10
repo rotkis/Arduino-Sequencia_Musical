@@ -109,3 +109,4 @@ Siga as conexões abaixo para montar o circuito:
 <img src="imagens/Errou.png" alt="Errou">
 <img src="imagens/Acertou.png" alt="Acertou">
 <img src="imagens/Gameover.png" alt="Gameover">
+<img src="imagens/Imagem.jpeg" alt="imagem">
