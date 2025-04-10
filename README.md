@@ -24,16 +24,16 @@ O objetivo do projeto apresentado nas imagens é desenvolver um jogo de memória
 
    ## Hardware Necessário
 
-* 1x Placa Arduino (Uno, Nano, ou compatível)
+* 1x Placa Arduino (Uno)
 * 1x Display LCD 16x2 (com pinagem paralela)
 * 1x Potenciômetro de 10k (para ajuste de contraste do LCD)
 * 1x Buzzer passivo
 * 5x Botões de pressão (Push buttons)
 * 1x LED Verde
 * 1x LED Vermelho
-* 2x Resistores (220Ω ou 330Ω, para os LEDs)
+* 2x Resistores ( 330Ω, para os LEDs)
 * 1x Protoboard (Placa de ensaio)
-* Fios Jumper (Macho-Macho, Macho-Fêmea)
+* Fios Jumper
 
 ## Software Necessário
 
@@ -56,17 +56,17 @@ Siga as conexões abaixo para montar o circuito:
 * LCD VDD -> Arduino 5V
 * LCD VO -> Pino central do Potenciômetro 10k
 * Extremos do Potenciômetro -> Arduino 5V e GND (respectivamente)
-* LCD A (Anodo Backlight) -> Arduino 5V (ou via resistor 220Ω)
-* LCD K (Catodo Backlight) -> Arduino GND
+* LCD A  -> Arduino 5V (ou via resistor 220Ω)
+* LCD K  -> Arduino GND
 
 **Componentes de Feedback:**
 
 * Buzzer (+) -> Arduino Pino 7
 * Buzzer (-) -> Arduino GND
-* LED Verde (Anodo / Perna longa) -> Resistor -> Arduino Pino 5
-* LED Verde (Catodo / Perna curta) -> Arduino GND
-* LED Vermelho (Anodo / Perna longa) -> Resistor -> Arduino Pino 6
-* LED Vermelho (Catodo / Perna curta) -> Arduino GND
+* LED Verde  -> Resistor -> Arduino Pino 5
+* LED Verde  -> Arduino GND
+* LED Vermelho -> Resistor -> Arduino Pino 6
+* LED Vermelho  -> Arduino GND
 
 **Botões (Usando INPUT_PULLUP):**
 
