@@ -101,4 +101,11 @@ Siga as conexões abaixo para montar o circuito:
 * **`res()`:** Função principal da jogabilidade do usuário. Lê os botões pressionados, compara com a sequência correta, atualiza score/vidas e fornece feedback.
 * **`menuDificuldade()`:** Exibe e gerencia a interação no menu de seleção de dificuldade.
 * **`blink()` e `hide()`:** Funções de Interrupção (ISRs) chamadas pelos botões 3 e 2, respectivamente, para avançar estados ou navegar nos menus.
-
+<img src="imagens/Bem_vindo.png" alt="Bem Vindo">
+<img src="imagens/Menu_musica.png" alt="Menu musica">
+<img src="imagens/Menu_dificuldade.png" alt="Menu dificuldade">
+<img src="imagens/Musica_Tocando.png" alt="Musica tocando">
+<img src="imagens/Sua_vez.png" alt="Sua vez">
+<img src="imagens/Errou.png" alt="Errou">
+<img src="imagens/Acertou.png" alt="Acertou">
+<img src="imagens/Gameover.png" alt="Gameover">
